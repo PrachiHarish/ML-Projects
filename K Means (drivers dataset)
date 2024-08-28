@@ -1,0 +1,16 @@
+import pandas as pd
+from sklearn.cluster import KMeans
+import numpy as np
+import seaborn as sns
+
+data=pd.read_excel("C:\\Users\\TANUJA HARISH\\Desktop\\ML Lab\\driver_data.xlsx",index_col="id")
+print(data)
+data.head()
+kmeans=KMeans(n_clusters=4)
+kmeans.fit(data)
+kmeans(algorithm="auto",copy_x=True,init="k_means++",max_iter=300,n_clusters=4,n_init=10,n_jobs=None,precompute_distances="auto",random_state=None,tol=0.001,verbose=0)
+print(kmeans.cluster_centres_)
+
+data["cluster"]=kmeans.labels_
+sns.lmplot("mean_dist_day","mean_over_speed_prec",data=data,hue="cluster",palette="coolwarm",size=6,aspect=1,fit_reg=False)
+print(kmeans.inertia_)
