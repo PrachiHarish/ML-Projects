@@ -1,0 +1,25 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import classification_report,confusion_matrix,accuracy_score
+from sklearn.naive_bayes import GaussianNB
+
+data_set=pd.read_csv("C:\\Users\\TANUJA HARISH\\Desktop\\ML Lab\\diabetes.csv")
+print(data_set)
+x=data_set.iloc[:,0:8].values
+y=data_set.iloc[:,-1].values
+
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.25,random_state=0)
+
+gnb=GaussianNB()
+
+y_pred=gnb.fit(x_train,y_train).predict(x_test)
+
+y_pred=gnb.predict(x_test)
+
+cm=confusion_matrix(y_test,y_pred,labels=gnb.classes_)
+disp=ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=gnb.classes_)
+disp.plot()
+plt.show()
