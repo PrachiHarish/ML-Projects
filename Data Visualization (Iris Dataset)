@@ -1,0 +1,60 @@
+import pandas as pd
+import numpy as np
+import warnings
+warnings.filterwarnings("ignore")
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.set(style="white",color_codes=True)
+
+iris=pd.read_csv("C:\\Users\\TANUJA HARISH\\Desktop\\ML Lab\\Iris.csv")
+print(iris)
+
+a=iris.info()
+print(a)
+
+sns.countplot(x="Species",data=iris)
+plt.show()
+
+def graph(y):
+  sns.boxplot(x="Species",y=y,data=iris)
+  plt.show()
+graph("SepalLengthCm")
+graph("SepalWidthCm")
+graph("PetalLengthCm")
+graph("PetalWidthCm")
+
+sns.scatterplot(x="SepalLengthCm",y="SepalWidthCm",hue="Species",data=iris)
+plt.legend(bbox_to_anchor=(1,1),loc=2)
+plt.show()
+
+sns.scatterplot(x="PetalLengthCm",y="PetalWidthCm",hue="Species",data=iris)
+plt.legend(bbox_to_anchor=(1,1),loc=2)
+plt.show()
+
+sns.pairplot(iris.drop(["Id"],axis=1),hue="Species",height=2)
+
+fig,axes=plt.subplots(2,2,figsize=(10,10))
+axes[0,0].set_title("Sepal Length")
+axes[0,0].hist(iris["SepalLengthCm"],bins=4)
+
+axes[0,1].set_title("Sepal Width")
+axes[0,1].hist(iris["SepalWidthCm"],bins=5)
+
+axes[1,0].set_title("Petal Length")
+axes[1,0].hist(iris["PetalLengthCm"],bins=6)
+
+axes[1,1].set_title("Petal Width")
+axes[1,1].hist(iris["PetalWidthCm"],bins=5)
+
+plt.show()
+
+sns.heatmap(iris.corr(method="pearson").drop(["Id"],axis=1).drop(["Id"],axis=0),annot=True)
+plt.show()
+
+def violin(y):
+  sns.violinplot(x="Species",y=y,data=iris)
+  plt.figure(figsize=(10,10))
+violin("SepalLengthCm")
+violin("SepalWidthCm")
+violin("PetalLengthCm")
+violin("PetalWidthCm")
